@@ -1,0 +1,27 @@
+services:
+  trilium:
+    image: triliumnext/trilium:latest
+    container_name: Trilium
+    mem_limit: 8g
+    cpu_shares: 2048
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 8080 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
+    security_opt:
+      - no-new-privileges:false
+    restart: on-failure:5
+    environment:
+      - TRILIUM_DATA_DIR=/home/node/trilium-data
+    ports:
+      - 4292:8080
+    volumes:
+      - /volume1/docker/trilium:/home/node/trilium-data:rw
+    networks:
+      - my_lan
+
+networks:
+  my_lan:
+    external: true
