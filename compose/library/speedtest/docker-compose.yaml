@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  prometheus-speedtest-exporter:
+    image: billimek/prometheus-speedtest-exporter:latest
+    container_name: prometheus-speedtest-exporter
+    ports:
+      - "9469:9469"
+    restart: unless-stopped
